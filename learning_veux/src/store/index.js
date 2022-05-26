@@ -8,9 +8,17 @@ const store = new Vuex.Store({
   state: {
     bookList: ['Book 1', 'Book 2', 'Book 3']
   },
+  getters: {
+    totalBook(state){
+      return state.bookList.length;
+    }
+  },
   mutations: {
     ADD_Book(state,payload){
-      console.log(payload);
+      state.bookList.push(payload);
+    },
+    Delete_Book(state, index) {
+      state.bookList.splice(index,1)
     }
   },
   // Same as computed
@@ -21,6 +29,9 @@ const store = new Vuex.Store({
   actions: {
     addBook(context,payload){
       context.commit('ADD_Book', payload)
+    },
+    removeBook({ commit }, index) {
+      commit('Delete_Book',index)
     }
   },
 

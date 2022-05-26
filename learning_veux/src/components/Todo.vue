@@ -1,40 +1,46 @@
 <template>
     <div>
         <h1>todo</h1>
+        <h2>Total Book : {{$store.getters.totalBook}}</h2>
         <input type="text" name="" id="" v-model="bookName">
         <button @click="addBook">Add</button>
         <ul>
             <li v-for="(book,index) in $store.state.bookList" :key="index">
-                {{ book }} <button>delete</button>
-            </li> 
+                {{ book }} &nbsp; &nbsp; <button @click="deleteBook(index)">Delete</button>
+            </li>
         </ul>
     </div>
 </template>
 <script>
-export default {
-    name: 'Todo',
+    export default {
+        name: 'Todo',
 
-    data() {
-        return {
-            bookName:'',
-        };
-    },
-    computed:{
-        // bookList(){
-        //     return this.$store.state.bookList
-        // }
-    },
-    mounted() {
-        
-    },
+        data() {
+            return {
+                bookName: '',
+            };
+        },
+        computed: {
+            bookList(){
+                return this.$store.state.bookList
+            }
+        },
+        mounted() {
 
-    methods: {
-        addBook(){
-            this.$store.dispatch('addBook',this.bookName);
-        }
-    },
-};
+        },
+
+        methods: {
+            addBook() {
+                this.$store.dispatch('addBook', this.bookName);
+            },
+            // State ar action k dhorar jonno dispatch use korte hoi. r mutations k dhorar jonno commit
+            deleteBook(index) {
+                this.$store.dispatch("removeBook", index)
+                // this.$store.commit("removeBook",index)
+            }
+        },
+    };
 </script>
 <style lang="" scoped>
-    
+
 </style>
